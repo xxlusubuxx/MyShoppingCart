@@ -311,35 +311,43 @@ button:hover {
         top: calc(var(--top_menu_height) + var(--sub_menu_height));
         border-radius: var(--border_radius);
         position: absolute;
-        margin: var(--content_margin);
+        margin: calc(var(--content_margin)*4);
         padding: calc(var(--content_margin));
         display: flex;
         flex-direction: column;
         justify-content: start;
     }
-    .content >div {
+    .content_form {
+        width: 100%;
+        position: relative;
+        border-radius: var(--border_radius);
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+    }
+    .content_form >div {
         display: flex;
         flex-direction: row;
         justify-content: start;
         align-items: start;
         margin: var(--button_margin_up_down) var(--button_margin_left_right) var(--button_margin_up_down) var(--button_margin_left_right);
     }
-    .content >input, .content >button {
+    .content_form >input, .content_form >button {
         height: var(--content_input_height);
         margin: var(--button_margin_left_right) var(--button_margin_up_down) var(--button_margin_left_right) var(--button_margin_up_down);
     }
-    .content >button {
+    .content_form >button {
         background-color: var(--secondary-400);
         border: var(--border_thickness) solid var(--secondary-400);
         border-radius: var(--border_radius);
         transition-duration: var(--transition_duration);
     }
-        .content >button:focus, .content >button:hover {
+        .content_form >button:focus, .content >button:hover {
             border: var(--border_thickness) solid var(--background-500);
             cursor: pointer;
             transition-duration: var(--transition_duration);
         }
-        .content >button:focus {
+        .content_form >button:focus {
             background-color: var(--background-500);
             color: var(--text-50);
         }
