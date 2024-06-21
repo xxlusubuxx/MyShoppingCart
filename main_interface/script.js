@@ -64,7 +64,7 @@ if (brand_button) {
 
 //Slideshow Feature
 //const slide = document.getElementsByClassName('slide_item');
-const container = document.getElementsByClassName('slide_container');
+const container = document.getElementById('slide_container');
 const slide = document.createElement('div');
 let length = 0;
 //For the background of the slides
