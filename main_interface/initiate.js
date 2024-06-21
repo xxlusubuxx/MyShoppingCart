@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const port = 2222;
+const port = 3000;
 
 app.use(express.static(path.join(__dirname)));
 
@@ -15,3 +15,7 @@ app.get("/api/length", (req, res) => {
   const length = fs.readdirSync("./slide_backgrounds").length;
   res.json(length);
 });
+
+app.get("/api/port", (req, res) => {
+  res.json(port);
+})

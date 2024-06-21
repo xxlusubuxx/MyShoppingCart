@@ -1,5 +1,8 @@
 
-const port = 3000;
+let port;
+fetch ('/api/port')
+  .then(response => response.json())
+  .then(data => port = data)
 //Categories Dropdown
 const category_button = document.getElementById("category_button");
 const drop_category = document.getElementById('drop_category');
@@ -63,22 +66,22 @@ if (brand_button) {
   });
 
 //Slideshow Feature
-const container = document.getElementById('slide_container');
-let length;
-//For the background of the slides
-fetch('/api/length')  
-  .then(response => response.json())
-  .then(length => {
-    for (let i = 0; i < length; i++) {
-      let slide = document.createElement('div');
-      container
-        .appendChild(slide)
-        .classList.add('slide_item')
-      document.getElementsByClassName('slide_item')[0].classList.add('onstage')
-      document.getElementsByClassName('slide_item')[i]
-        .style.backgroundImage = `url('http://localhost:3000/slide_backgrounds/slide${i+1}.jpg')`
-    }
-  })
+  const container = document.getElementById('slide_container');
+  let length;
+  //For the background of the slides
+  fetch('/api/length')  
+    .then(response => response.json())
+    .then(length => {
+      for (let i = 0; i < length; i++) {
+        let slide = document.createElement('div');
+        container
+          .appendChild(slide)
+          .classList.add('slide_item')
+        document.getElementsByClassName('slide_item')[0].classList.add('onstage')
+        document.getElementsByClassName('slide_item')[i]
+          .style.backgroundImage = `url('http://localhost:${port}/slide_backgrounds/slide${i+1}.jpg')`
+      }
+    })
 
   //For the slides to actually slide
   const slide = document.getElementsByClassName('slide_item');
@@ -126,3 +129,30 @@ fetch('/api/length')
     });
   })
 
+//My Landing Page
+  const landing_page = document.getElementById('landing_page');
+  landing_page.addEventListener('click', async function() {
+    fetch('/landing.html')
+      .then(response => response.url)
+      .then(url => {
+        window.location.href = url
+      })
+  })
+//Search Bar
+  const search = document.getElementById('search');
+  search.addEventListener('click', async function() {
+    fetch('/search.html')
+      .then(response => response.url)
+      .then(url => {
+        window.location.href = url
+      })
+  })
+//Sign In
+  const sign_in = document.getElementById('sign_in');
+  sign_in.addEventListener('click', async function() {
+    fetch('/sign_in.html')
+      .then(response => response.url)
+      .then(url => {
+        window.location.href = url
+      })
+  })
