@@ -63,27 +63,25 @@ if (brand_button) {
   });
 
 //Slideshow Feature
-//const slide = document.getElementsByClassName('slide_item');
 const container = document.getElementById('slide_container');
-const slide = document.createElement('div');
-let length = 0;
+let length;
 //For the background of the slides
 fetch('/api/length')  
   .then(response => response.json())
-  .then(data => {length = data})
+  .then(length => {
+    for (let i = 0; i < length; i++) {
+      let slide = document.createElement('div');
+      container
+        .appendChild(slide)
+        .classList.add('slide_item')
+      document.getElementsByClassName('slide_item')[0].classList.add('onstage')
+      document.getElementsByClassName('slide_item')[i]
+        .style.backgroundImage = `url('http://localhost:3000/slide_backgrounds/slide${i+1}.jpg')`
+    }
+  })
 
-async function populateSlides() {
-  for (let i = 0; i < 6; i++) {
-    await new Promise(resolve => {
-      container[0]
-      .appendChild(slide)
-      setTimeout(resolve, 200);
-    });
-  }
-}
-
-populateSlides();
   //For the slides to actually slide
+  const slide = document.getElementsByClassName('slide_item');
   const rightButton = document.getElementsByClassName('arrow_right')
   rightButton[0].addEventListener('click', async function() {
     let n = 0;
