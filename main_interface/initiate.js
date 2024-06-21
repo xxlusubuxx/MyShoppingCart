@@ -21,11 +21,9 @@ app.get("/api/port", (req, res) => {
 })
 
 app.post("/api/user_data", (req, res) => {
-  const {inputValue,agree}  = req.body;
-  const {authorization} = req.headers;
-  res.send({
-    inputValue,
-    agree,
-    authorization,
-  });
+  res.send(req.body)
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    });
 })

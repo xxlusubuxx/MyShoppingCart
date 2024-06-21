@@ -28,8 +28,9 @@ function displayAlert(message) {
     alertMessage.innerText = message;
     alertMessage.id = 'alert_message';
 }
-document.getElementById('continue').addEventListener('click', () => {
-    validate();
+async function submit() {
+    document.getElementById('continue').addEventListener('click', () => {
+        validate();
         fetch("/api/user_data", {
             method: "POST",
             body: JSON.stringify({
@@ -37,11 +38,10 @@ document.getElementById('continue').addEventListener('click', () => {
                 terms_of_agreement: document.getElementById('terms_of_agreement').checked,
             }),
             headers: {
-              "Content-type": "application/json; charset=UTF-8"
+            "Content-type": "application/json; charset=UTF-8"
             }
         })
-        .then((res) => {return res.json()})
-        .then((data) => console.log(data));
-    
-})
-
+        .then((res) => {return res.json()}) 
+        .then(data => console.log(data))
+    })
+}
