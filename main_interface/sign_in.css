@@ -68,7 +68,8 @@
     --top_menu_button_height: calc(var(--top_menu_height) - 2*var(--button_margin_up_down) - 2*var(--border_thickness));
     --top_menu_search_bar_height: calc(var(--top_menu_height) - 2*var(--button_margin_up_down) - 3*var(--border_thickness));
     --sub_menu_button_height: calc(var(--sub_menu_height) - 2*var(--button_margin_up_down) - 2*var(--border_thickness));
-    --square_container_height: 400px;
+    --content_height: 350px;
+    --content_input_height: 30px;
     /*width*/
     --max_width: 100%;
     --min_width: 600px;
@@ -99,16 +100,16 @@ body {
 font-family: 'Inter';
 font-weight: 200;
 }
-h1, h2, h3, h4, h5 {
-font-family: 'Inter';
-font-weight: 500;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter';
+  font-weight: 500;
 }
 h1 {font-size: 1.858rem; /* 31.56px */ margin-top: 4px;}
 h2 {font-size: 1.333rem; /* 21.28px */ margin-top: 2px;}
 h3 {font-size: 1.077rem; /* 17.48px */ margin-top: 2px;}
 h4 {font-size: 0.933rem; /* 15.28px */ margin-top: 2px;}
 h5 {font-size: 0.750rem; /* 12px */ margin-top: 2px;}
-small {font-size: 0.550rem; /* 8.5px */ margin-top: 2px;}
+h6 {font-size: 0.550rem; /* 8.5px */ margin-top: 2px;}
 
 body {
     background-color: var(--background-500);
@@ -304,7 +305,8 @@ button:hover {
                 }
     .content {
         width: var(--content_width);
-        min-height: 400px;
+        max-width: 400px;
+        height: var(--content_height);
         background-color: white;
         top: calc(var(--top_menu_height) + var(--sub_menu_height));
         border-radius: var(--border_radius);
@@ -323,10 +325,25 @@ button:hover {
         margin: var(--button_margin_up_down) var(--button_margin_left_right) var(--button_margin_up_down) var(--button_margin_left_right);
     }
     .content >input, .content >button {
+        height: var(--content_input_height);
         margin: var(--button_margin_left_right) var(--button_margin_up_down) var(--button_margin_left_right) var(--button_margin_up_down);
     }
-    .content >span {
-        background-color: #050316;
-        height: var(--content_height);
+    .content >button {
+        background-color: var(--secondary-400);
+        border: var(--border_thickness) solid var(--secondary-400);
+        border-radius: var(--border_radius);
+        transition-duration: var(--transition_duration);
+    }
+        .content >button:focus, .content >button:hover {
+            border: var(--border_thickness) solid var(--background-500);
+            cursor: pointer;
+            transition-duration: var(--transition_duration);
+        }
+        .content >button:focus {
+            background-color: var(--background-500);
+            color: var(--text-50);
+        }
+    .content >.spacer {
+        height: calc(var(--content_height)/20);
         width: 100%;
     }
