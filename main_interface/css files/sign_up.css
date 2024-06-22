@@ -68,7 +68,7 @@
     --top_menu_button_height: calc(var(--top_menu_height) - 2*var(--button_margin_up_down) - 2*var(--border_thickness));
     --top_menu_search_bar_height: calc(var(--top_menu_height) - 2*var(--button_margin_up_down) - 3*var(--border_thickness));
     --sub_menu_button_height: calc(var(--sub_menu_height) - 2*var(--button_margin_up_down) - 2*var(--border_thickness));
-    --content_height: 350px;
+    --content_height: 600px;
     --content_input_height: 30px;
     /*width*/
     --max_width: 100%;

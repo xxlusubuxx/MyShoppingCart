@@ -3,7 +3,7 @@ const app = express();
 const path = require("path");
 const port = 3000;
 
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname + "/landing.html")));
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
@@ -12,7 +12,7 @@ app.listen(port, () => {
 const fs = require("fs");
 
 app.get("/api/length", (req, res) => {
-  const length = fs.readdirSync("./slide_backgrounds").length;
+  const length = fs.readdirSync("./main_interface/img/slide_backgrounds").length;
   res.json(length);
 });
 

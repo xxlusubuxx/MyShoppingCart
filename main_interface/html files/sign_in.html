@@ -6,38 +6,19 @@
     <link type="text/css" rel="stylesheet" href="/main_interface/css files/sign_in.css">
 </head>
 <body>
-    <div class="top_menu">
-        <button class="button_top" id="landing_page">MyShoppingCart</button>
-        <div class="search_bar_top">
-            <button id="search">Search</button>
-            <input type="text">
-        </div>
-        <button class="button_top" id="sign_in">Sign In</button>
-        <button class="button_top">Cart</button>
-    </div>
-    <div class="sub_menu">
-        <button id="category_button" class="button_sub">Categories</button>
-        <button id="brand_button" class="button_sub">Brands</button>
-        <button class="button_sub">Hot Deals</button>
-        <button class="button_sub">New Arrivals</button>
-        <button class="button_sub">Collections</button>
-    </div>
     <!-- content -->
     <div class="content">
         <h1>Sign In</h1>
-        <h5>Enter your email or phone number</h5>
         <form action="javascript:void(0)" class="content_form" id="content_form">
-            <div id="alert"><h5 id="alert_message"></h5></div>
+            <h5>Enter your email or phone number</h5>
             <input type="text" id="email_phone">
+            <div id="alert"><h5 id="alert_message"></h5></div>
             <button id="continue">Continue</button>
-            <div>
-                <input type="checkbox" name="terms_of_agreement" id="terms_of_agreement">
-                <h6>By continuing, I agree to MyShoppingCart's Terms of Use and Privacy Policy</h6>
-            </div>
         </form>
         <div class="spacer"></div>
         <h5>Need help?</h5>
-        <h5>New to MyShoppingCart? <a href="">Create an account</a></h5>
+        <div class="spacer"></div>
+        <h5>New to MyShoppingCart? <a href="/main_interface/html files/sign_up.html">Create an account</a></h5>
     </div>
     <script type="text/javascript" src="/main_interface/js files/sign_in.js"></script>
 </body>

@@ -79,7 +79,7 @@ if (brand_button) {
           .classList.add('slide_item')
         document.getElementsByClassName('slide_item')[0].classList.add('onstage')
         document.getElementsByClassName('slide_item')[i]
-          .style.backgroundImage = `url('http://localhost:${port}/slide_backgrounds/slide${i+1}.jpg')`
+          .style.backgroundImage = `url('http://localhost:${port}/main_interface/img/slide_backgrounds/slide${i+1}.jpg')`
       }
     })
 
@@ -141,7 +141,7 @@ if (brand_button) {
 //Search Bar
   const search = document.getElementById('search');
   search.addEventListener('click', async function() {
-    fetch('/search.html')
+    fetch('/main_interface/html files/search.html')
       .then(response => response.url)
       .then(url => {
         window.location.href = url
@@ -150,7 +150,7 @@ if (brand_button) {
 //Sign In
   const sign_in = document.getElementById('sign_in');
   sign_in.addEventListener('click', async function() {
-    fetch('/sign_in.html')
+    fetch('/main_interface/html files/sign_in.html')
       .then(response => response.url)
       .then(url => {
         window.location.href = url
