@@ -20,12 +20,3 @@ app.get("/api/port", (req, res) => {
   res.json(port);
 })
 
-app.post("/api/user_data", (req, res) => {
-  const {inputValue,agree}  = req.body;
-  const {authorization} = req.headers;
-  res.send({
-    inputValue,
-    agree,
-    authorization,
-  });
-})
