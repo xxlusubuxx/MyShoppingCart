@@ -20,10 +20,3 @@ app.get("/api/port", (req, res) => {
   res.json(port);
 })
 
-app.post("/api/user_data", (req, res) => {
-  res.send(req.body)
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send('Internal Server Error');
-    });
-})
