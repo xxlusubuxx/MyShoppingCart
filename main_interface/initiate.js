@@ -20,14 +20,12 @@ app.get("/api/port", (req, res) => {
   res.json(port);
 })
 
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Deadmonster0909205863**',
-  database: 'users'
-});
-connection.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+app.post("/api/user_data", (req, res) => {
+  const {inputValue,agree}  = req.body;
+  const {authorization} = req.headers;
+  res.send({
+    inputValue,
+    agree,
+    authorization,
+  });
 })
