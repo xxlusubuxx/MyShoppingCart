@@ -1,6 +1,6 @@
 const email = document.getElementById('email');
 const alert_email = document.getElementById('alert_email');
-async function validate(input,alert) {
+function validate(input,alert) {
     const inputValue = input.value;
     const alertMessage = document.getElementById('alert_message');
 
@@ -26,8 +26,9 @@ async function validate(input,alert) {
     }
     else document.getElementById.content_form
 }
-
 document.getElementById('continue').addEventListener('click', () => {
     validate(email, alert_email)
-    console.log("validation ran")
+        if (validate(email, alert_email)) {
+            window.location.href = '/main_interface/html files/verifying_email.html'
+        }
 })

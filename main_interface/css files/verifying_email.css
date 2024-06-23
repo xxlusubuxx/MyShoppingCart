@@ -68,7 +68,7 @@
     --top_menu_button_height: calc(var(--top_menu_height) - 2*var(--button_margin_up_down) - 2*var(--border_thickness));
     --top_menu_search_bar_height: calc(var(--top_menu_height) - 2*var(--button_margin_up_down) - 3*var(--border_thickness));
     --sub_menu_button_height: calc(var(--sub_menu_height) - 2*var(--button_margin_up_down) - 2*var(--border_thickness));
-    --content_height: 600px;
+    --content_height: 300px;
     --content_input_height: 30px;
     /*width*/
     --max_width: 100%;
@@ -127,7 +127,7 @@ body {
     justify-content: center;
 }
 
-#continue:hover {
+button:hover {
     cursor: pointer;
 }
     .content {
@@ -142,42 +142,37 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: start;
-    }
-    .content_form {
-        width: 100%;
-        position: relative;
-        border-radius: var(--border_radius);
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-    }
-    .content_form >div {
-        display: flex;
-        flex-direction: row;
-        justify-content: start;
         align-items: start;
-        margin: var(--button_margin_up_down) var(--button_margin_left_right) var(--button_margin_up_down) var(--button_margin_left_right);
     }
-    .content_form >input, .content_form >button, select {
+        .content_form {
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+        }
+    button, select {
         height: var(--content_input_height);
+        width: 100%;
         margin: var(--button_margin_left_right) var(--button_margin_up_down) var(--button_margin_left_right) var(--button_margin_up_down);
     }
-    .content_form >#continue {
+    button {
         background-color: var(--secondary-400);
         border: var(--border_thickness) solid var(--secondary-400);
         border-radius: var(--border_radius);
         transition-duration: var(--transition_duration);
     }
-        .content_form >#continue:focus, .content >#continue:hover {
+        button:focus, .content >button:hover {
             border: var(--border_thickness) solid var(--background-500);
             cursor: pointer;
             transition-duration: var(--transition_duration);
         }
-        .content_form >#continue:focus {
+        button:focus {
             background-color: var(--background-500);
             color: var(--text-50);
         }
-    .content >.spacer {
+    .spacer {
         height: calc(var(--content_height)/10);
         width: 100%;
     }
