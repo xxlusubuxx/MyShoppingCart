@@ -152,7 +152,7 @@ button:hover {
         align-items: start;
         margin: var(--button_margin_up_down) var(--button_margin_left_right) var(--button_margin_up_down) var(--button_margin_left_right);
     }
-    .content_form >input, .content_form >button {
+    .content_form >input, .content_form >button, select {
         height: var(--content_input_height);
         margin: var(--button_margin_left_right) var(--button_margin_up_down) var(--button_margin_left_right) var(--button_margin_up_down);
     }

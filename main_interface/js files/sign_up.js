@@ -1,47 +1,33 @@
-const sign_in = document.getElementById('email_phone');
-const alert_container = document.getElementById('alert');
-function validate() {
-    const inputValue = sign_in.value.trim();
+const email = document.getElementById('email');
+const alert_email = document.getElementById('alert_email');
+async function validate(input,alert) {
+    const inputValue = input.value;
     const alertMessage = document.getElementById('alert_message');
 
-    if (alertMessage) {
-        alert_container.removeChild(alertMessage);
+    function displayAlert(message) {
+        const alertMessage = document.createElement('h5');
+        alert.appendChild(alertMessage);
+        alertMessage.innerText = message;
+        alertMessage.id = 'alert_message';
     }
+
+    if (alertMessage) {
+        alert.removeChild(alertMessage);
+    }
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputValue);
 
     if (inputValue === '') {
-        displayAlert('Please enter your email or phone number');
+        displayAlert('Please enter your email');
         return false;
     }
-
-    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputValue);
-    const isValidPhone = /^\d{10}$/.test(inputValue);
-
-    if (!isValidEmail && !isValidPhone) {
-        displayAlert('Please enter your correct email or phone number');
+    else if (!isValidEmail) {
+        displayAlert('Please enter your correct email');
         return false;
     }
-    else return true;
+    else document.getElementById.content_form
 }
-function displayAlert(message) {
-    const alertMessage = document.createElement('h5');
-    alert_container.appendChild(alertMessage);
-    alertMessage.innerText = message;
-    alertMessage.id = 'alert_message';
-}
-async function submit() {
-    document.getElementById('continue').addEventListener('click', () => {
-        validate();
-        fetch("/api/user_data", {
-            method: "POST",
-            body: JSON.stringify({
-                email_phone: sign_in,
-                terms_of_agreement: document.getElementById('terms_of_agreement').checked,
-            }),
-            headers: {
-            "Content-type": "application/json; charset=UTF-8"
-            }
-        })
-        .then((res) => {return res.json()}) 
-        .then(data => console.log(data))
-    })
-}
+
+document.getElementById('continue').addEventListener('click', () => {
+    validate(email, alert_email)
+    console.log("validation ran")
+})
