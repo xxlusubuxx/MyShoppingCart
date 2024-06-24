@@ -1,5 +1,0 @@
-CREATE TABLE user_info (
-    id SERIAL PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(45) NOT NULL,
-    password VARCHAR(45) NOT NULL
-)

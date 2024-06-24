@@ -108,7 +108,7 @@ h1 {font-size: 1.858rem; /* 31.56px */ margin-top: calc(12px + (1.858rem - 1rem)
 h2 {font-size: 1.333rem; /* 21.28px */ margin-top: calc(8px + (1.333rem - 1rem) * 0.5); margin-bottom: calc(6px + (1.333rem - 1rem) * 0.5);}
 h3 {font-size: 1.077rem; /* 17.48px */ margin-top: calc(8px + (1.077rem - 1rem) * 0.5); margin-bottom: calc(6px + (1.077rem - 1rem) * 0.5);}
 h4 {font-size: 0.933rem; /* 15.28px */ margin-top: calc(6px + (0.933rem - 1rem) * 0.5); margin-bottom: calc(4px + (0.933rem - 1rem) * 0.5);}
-h5 {font-size: 0.750rem; /* 12px */ margin-top: calc(6px + (0.750rem - 1rem) * 0.5); margin-bottom: calc(4px + (0.750rem - 1rem) * 0.5);}
+h5, label {font-size: 0.750rem; /* 12px */ margin-top: calc(6px + (0.750rem - 1rem) * 0.5); margin-bottom: calc(4px + (0.750rem - 1rem) * 0.5);}
 h6 {font-size: 0.550rem; /* 8.5px */ margin-top: calc(4px + (0.550rem - 1rem) * 0.5); margin-bottom: calc(3px + (0.550rem - 1rem) * 0.5);}
 #alert {
     font-size: inherit;
