@@ -9,6 +9,16 @@ document.getElementById('content_form').addEventListener('submit', (event) => {
         event.preventDefault();
     }
 })
+
+document.getElementById('content_form').addEventListener('submit', async (event) => {
+    const exist = await checkEmail(email.value);
+    if (exist) {
+        alert('Email or username already in use.');
+    } else {
+        event.target.submit();
+    }
+})
+
 function validate(input,alert) {
     const inputValue = input.value;
     const alertMessage = document.getElementById('alert_message');

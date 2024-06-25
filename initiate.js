@@ -4,6 +4,13 @@ const path = require("path");
 const fs = require("fs");
 const port = 3000;
 const mysql = require('mysql2')
+const pool = mysql.createPool({
+  connectionLimit: 10,
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database: 'myshoppingcart'
+})
 
 
 
@@ -17,18 +24,7 @@ const mysql = require('mysql2')
   // Start server
     app.listen(port, () => {
       console.log(`Server listening at http://localhost:3000/main_interface/html%20files/landing.html?`);
-        connection.connect((err) => {
-            if (err) throw err;
-            console.log('Connected!');
-        })
     });
-  // connect to mySQL
-    const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'myshoppingcart'
-  })
   // Read data from submissions
     const bodyParser = require('body-parser');
     // Parse application/x-www-form-urlencoded
@@ -53,18 +49,35 @@ const mysql = require('mysql2')
     });
 
   //sign_up
-    app.post('/api/user_data', (req, res) => {
-      console.log(req.body);
-      let user_data = {
-          user_name: req.body.username,
-          email: req.body.email,
-          password: req.body.password1
-      };
-      connection.connect((err) => {
-        connection.query('INSERT INTO user_info SET ?', user_data, function (err, results, fields) {
-          console.log("New user created!");
-        });
-    })
-      connection.end();
-      res.redirect('/main_interface/html files/verifying_email.html');
-    });
+  async function checkEmail(email) {
+    try {
+      await pool.getConnection((err, connection) => {
+        const [result] = pool.query(
+          `SELECT COUNT(*) as count FROM user_info WHERE email = ?`,
+          [email]
+        );  
+        if (result[0].count > 0) {return true} else {return false};
+      })
+    } catch (error) {
+      console.error('Error checking email and username:', error);
+      return false; // Handle the error appropriately
+    }
+  }
+
+  app.post('/api/user_data', async (req, res) => {
+    const { username, email, password1 } = req.body;
+    const duplicate = await checkEmail(req.body.email)
+    if (!duplicate) {
+      pool.getConnection((err, connection) => {
+        pool.query(
+          `INSERT INTO user_info SET ?`,
+          { user_name: username, email: email, password: password1 }
+        );
+        res.redirect('/main_interface/html files/verifying_email.html');
+      })
+    } 
+    if (duplicate) {
+      console.log(`Has there been a user registered with this email of ${email}: ` + duplicate);
+      return res.status(400).send('Email or username already in use.');
+    }
+  });
