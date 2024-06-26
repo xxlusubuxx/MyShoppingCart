@@ -1,3 +1,2 @@
-select count(*)
-FROM user_info
-WHERE email = 'hungdoan160796@gmail.com'
+ALTER TABLE myshoppingcart.user_info
+MODIFY id INT AUTO_INCREMENT
