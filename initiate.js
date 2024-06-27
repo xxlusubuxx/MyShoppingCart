@@ -44,8 +44,6 @@
     enableKeepAlive: true,
     keepAliveInitialDelay: 0
   })
-  app.set('views', './views');
-  app.set('view engine', 'ejs');
   async function checkEmail(email) {
     try {
       const checkEmail = `SELECT COUNT(*) as count FROM user_info WHERE email = ?`
@@ -66,14 +64,15 @@
     }
   }
 
-  app.post('/', async (req, res) => {
+  app.post('/api/user_data', async (req, res) => {
+    console.log(req.body)
     const {username: username, email: email, password: password1} = req.body;
-    const duplicate = await checkEmail(req.body.email)
+    const duplicate = checkEmail(req.body.email)
     if (!duplicate) {
+      res.json({duplicate})
       insertUser({username, email, password1});
       res.redirect('/main_interface/html files/verifying_email.html');
-    } 
-    if (duplicate) {
-      //no idea what to do here
     }
+    else res.json({duplicate})
+    console.log({duplicate})
   });
