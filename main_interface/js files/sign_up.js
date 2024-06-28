@@ -1,24 +1,16 @@
 const email =  document.getElementById('email');
 const username =  document.getElementById('username');
-const password1 =  document.getElementById('password1');
+const password =  document.getElementById('password');
 const password2 =  document.getElementById('password2');
 const alert_message = document.getElementById('alert');
 
 document.getElementById('content_form').addEventListener('submit', async (event) => {
-    event.preventDefault()
     if (!validate(email, alert_message)||
         !validate(username, alert_message)||
-        !validate(password1, alert_message)||
-        !validate(password2, alert_message)) {return false}
-    else {
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/api/user_data', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onload = () => {
-            if (JSON.parse(xhr.responseText)) {displayAlert('Email or username already exists');
-            return false;}
-        }
-        xhr.send(JSON.stringify({email: email.value, username: username.value, password: password1.value}));
+        !validate(password, alert_message)||
+        !validate(password2, alert_message)||
+        !checkEmail(email)) {
+            event.preventDefault()
     }
 })
 function displayAlert(message) {
@@ -40,8 +32,25 @@ function validate(input, alert) {
         const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputValue);
         const isValidUserName = /^[a-zA-Z0-9]+$/.test(inputValue);
         const isValidPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(inputValue);
-        const isValidPassword2 = password1.value === password2.value;
-        
+        const isValidPassword2 = password.value === password2.value;
+        fetch("/api/user_data/duplicate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email.value,
+                username: username.value,
+                password: password.value
+            })
+        })
+        .then((res) => {return res.json()})
+        .then(data => {
+            if (data.duplicate) {
+                displayAlert('Email already in use');
+                return false;
+            }
+        })
         if ( input === email && !isValidEmail) {
             displayAlert('Please enter a valid email address');
             return false;
@@ -50,7 +59,7 @@ function validate(input, alert) {
             displayAlert('Your username must contain only letters and numbers');
             return false;
         }
-        else if ( input === password1 && !isValidPassword) {
+        else if ( input === password && !isValidPassword) {
             displayAlert('Your password must be at least 8 characters long and contains at least 1 capital letter, 1 small letter, 1 number and 1 special character');
             return false;
         }

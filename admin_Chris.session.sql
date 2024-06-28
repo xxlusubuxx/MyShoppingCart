@@ -1,2 +1,1 @@
-ALTER TABLE myshoppingcart.user_info
-MODIFY id INT AUTO_INCREMENT
+INSERT INTO myshoppingcart.user_info VALUES (1, 'Deadmonster1', 'hungdoan160796@gmail', 'Deadmonster1@');

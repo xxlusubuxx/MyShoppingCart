@@ -63,16 +63,23 @@
       return false; // Handle the error appropriately
     }
   }
-
-  app.post('/api/user_data', async (req, res) => {
-    console.log(req.body)
-    const {username: username, email: email, password: password1} = req.body;
-    const duplicate = checkEmail(req.body.email)
-    if (!duplicate) {
-      res.json({duplicate})
-      insertUser({username, email, password1});
-      res.redirect('/main_interface/html files/verifying_email.html');
+  app.post('/api/user_data/duplicate', async (req, res) => {
+    console.log(req.body.email)
+    const duplicate = await checkEmail(req.body.email)
+    if (duplicate) {
+      res.send({duplicate})
+      console.log({duplicate})
+      return false
     }
-    else res.json({duplicate})
-    console.log({duplicate})
+    else app.post('/api/user_data', async (req, res) => {
+      console.log(req.body)
+      const {
+        username: username,
+        email: email,
+        password: password,
+        user_type: user_type,
+      } = req.body;
+      insertUser({username, email, password});
+      res.redirect('/main_interface/html files/verifying_email.html');
+    });
   });
