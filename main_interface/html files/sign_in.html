@@ -9,12 +9,22 @@
     <!-- content -->
     <div class="content">
         <h1>Sign In</h1>
-        <form action="javascript:void(0)" class="content_form" id="content_form">
-            <h5>Enter your email or phone number</h5>
-            <input type="text" id="email_phone">
-            <div id="alert"><h5 id="alert_message"></h5></div>
-            <button id="continue">Continue</button>
-        </form>
+        <div id="alert"><h5 id="alert_message"></h5></div>
+        <div class="content_form_container">
+            <form action="/api/user_sign_in" class="content_form" id="form_sign_in">
+                <h4>Got an account?</h4>
+                <h5>Enter your email or phone number</h5>
+                <input type="text" id="email_phone">
+                <button id="continue">Continue</button>
+            </form>
+            <form action="/api/user_password" class="content_form hidden" id="form_password">
+                <h4 id="welcome"></h4>
+                <h5>Enter your password and you're all set!</h5>
+                <input type="password" id="password">
+                <button id="log_in">Log In</button>
+                <button id="go_back">Not this account?</button>
+            </form>
+        </div>
         <div class="spacer"></div>
         <h5>Need help?</h5>
         <div class="spacer"></div>

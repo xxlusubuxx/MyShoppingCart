@@ -1,1 +1,2 @@
-INSERT INTO myshoppingcart.user_info VALUES (1, 'Deadmonster1', 'hungdoan160796@gmail', 'Deadmonster1@');
+ALTER TABLE admin_chris
+Rename TO user_data;

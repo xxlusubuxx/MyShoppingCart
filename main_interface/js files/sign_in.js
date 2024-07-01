@@ -1,47 +1,67 @@
-const sign_in = document.getElementById('email_phone');
-const alert_container = document.getElementById('alert');
-function validate() {
-    const inputValue = sign_in.value.trim();
-    const alertMessage = document.getElementById('alert_message');
-
-    if (alertMessage) {
-        alert_container.removeChild(alertMessage);
-    }
-
-    if (inputValue === '') {
-        displayAlert('Please enter your email or phone number');
-        return false;
-    }
-
-    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputValue);
-    const isValidPhone = /^\d{10}$/.test(inputValue);
-
-    if (!isValidEmail && !isValidPhone) {
-        displayAlert('Please enter your correct email or phone number');
-        return false;
-    }
-    else return true;
-}
-function displayAlert(message) {
-    const alertMessage = document.createElement('h5');
-    alert_container.appendChild(alertMessage);
-    alertMessage.innerText = message;
-    alertMessage.id = 'alert_message';
-}
-async function submit() {
-    document.getElementById('continue').addEventListener('click', () => {
-        validate();
-        fetch("/api/user_data", {
-            method: "POST",
-            body: JSON.stringify({
-                email_phone: sign_in,
-                terms_of_agreement: document.getElementById('terms_of_agreement').checked,
-            }),
-            headers: {
-            "Content-type": "application/json; charset=UTF-8"
-            }
+const email_phone = document.getElementById('email_phone');
+document.getElementById('form_sign_in').addEventListener('submit', async (event) => {
+    event.preventDefault()
+    fetch('/api/user_sign_in', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email_phone: email_phone.value
         })
-        .then((res) => {return res.json()}) 
-        .then(data => console.log(data))
     })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exist) {
+                signInValid()
+                document.getElementById('alert_message').innerHTML = ''
+            }
+            if (!data.exist) {
+                document.getElementById('alert_message').innerHTML = 'Invalid email or phone number'
+            }
+    })
+})
+function form(show,form) {
+    if (show === 'show') {
+        form.classList.remove('hidden')
+        form.classList.remove('off')
+        form.classList.add('on')
+    }
+    else {
+        form.classList.remove('on')
+        form.classList.add('off')
+    }
 }
+document.getElementById('go_back').addEventListener('click', async (event) => {
+    event.preventDefault()
+    form('show',document.getElementById('form_sign_in'))
+    form('hide',document.getElementById('form_password'))
+})
+function signInValid() {
+    form('hide',document.getElementById('form_sign_in'))
+    form('show',document.getElementById('form_password'))
+    document.getElementById('welcome').innerHTML = `Welcome back, ${email_phone.value}!`
+}
+const password = document.getElementById('password');
+document.getElementById('form_password').addEventListener('submit', async (event) => {
+    event.preventDefault()
+    fetch('/api/user_password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email_phone: email_phone.value,
+            password: password.value
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.correct) {
+                document.getElementById('alert_message').innerHTML = 'Wrong password'
+            }
+            else {
+                window.location.href = '/main_interface/html files/landing.html'
+            }
+    })
+})

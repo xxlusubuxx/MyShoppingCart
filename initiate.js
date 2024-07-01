@@ -28,13 +28,12 @@
       const length = fs.readdirSync("./main_interface/img/slide_backgrounds").length;
       res.json(length);
     });
-
-  //sign_up
+  //Connect to Data
   const mysql = require('mysql2/promise')
   const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'Deadmonster0909205863**',
+    password: 'root',
     database: 'myshoppingcart',
     waitForConnections: true,
     connectionLimit: 10,
@@ -44,6 +43,7 @@
     enableKeepAlive: true,
     keepAliveInitialDelay: 0
   })
+  //sign_up
   async function checkEmail(email) {
     try {
       const checkEmail = `SELECT COUNT(*) as count FROM user_info WHERE email = ?`
@@ -57,7 +57,7 @@
   async function insertUser({username, email, password}) {
     try {
       const insertUser = `INSERT INTO user_info SET ?`
-      await pool.query(insertUser,{username, email, password});
+      await pool.query(insertUser,{user_name: username, email: email, password: password});
     } catch (error) {
       console.error(error);
       return false; // Handle the error appropriately
@@ -83,3 +83,27 @@
       res.redirect('/main_interface/html files/verifying_email.html');
     });
   });
+  //sign_in
+  app.post('/api/user_sign_in', async (req, res) => {
+    console.log(req.body.email_phone)
+    const exist = await checkEmail(req.body.email_phone)
+    console.log({exist})
+    res.send({exist})
+  })
+  async function checkPassword(email) {
+    try {
+      const checkEmail = `SELECT * FROM user_info WHERE email = ?`
+      const [result] = await pool.query(checkEmail,[email]);  
+        return result[0].password;
+    } catch (error) {
+      console.error(error);
+      return false; // Handle the error appropriately
+    }
+  }
+  app.post('/api/user_password', async (req, res) => {
+    console.log(req.body.email_phone)
+    console.log(req.body.password)
+    const correct = await checkPassword(req.body.email_phone) === req.body.password
+    console.log({correct: correct})
+    res.send({correct: correct})
+  })
